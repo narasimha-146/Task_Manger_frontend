@@ -1,0 +1,70 @@
+.notifications-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px 10px;
+  min-height: calc(100vh - 80px); /* Adjust depending on navbar height */
+  background: #f7f7f7;
+  width: 100vw;
+}
+
+.notifications-container h2 {
+  color: #000;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.notifications-container ul {
+  list-style: none;
+  padding: 0;
+  width: 100%;
+  max-width: 600px;
+}
+
+.notifications-container li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 15px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  background: #f5f5f5;
+  color: #000; /* make sure text is visible */
+}
+
+.task-overdue {
+  border-left: 5px solid red;
+}
+
+.task-upcoming {
+  border-left: 5px solid orange;
+}
+
+.priority-low {
+  background: #e6f5e6; /* light green */
+  border-left-color: green;
+}
+
+.priority-medium {
+  background: #f5e6d6; /* light brown/orange */
+  border-left-color: #b5651d;
+}
+
+.priority-high {
+  background: #ffe5e5; /* light red */
+  border-left-color: red;
+}
+
+.delete-btn {
+  background: #ff4d4f;
+  border: none;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.delete-btn:hover {
+  background: #d9363e;
+}

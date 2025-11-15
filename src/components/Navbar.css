@@ -66,3 +66,22 @@
         justify-content: center;
     } 
 }
+
+/* Logout Button */
+.btn-logout {
+  background: #e74c3c;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 12px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  transition: 0.2s ease;
+}
+
+.btn-logout:hover {
+  background: #c0392b;
+}
+
+/* Keep rest of navbar styles intact */

@@ -1,10 +1,9 @@
 // src/pages/Home.jsx
 import { useState } from "react";
 import { addTask } from "../api";
-
 import Navbar from "../components/Navbar";
-
 import "./Home.css";
+
 export default function Home() {
   const [task, setTask] = useState({
     title: "",
@@ -17,8 +16,12 @@ export default function Home() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Convert dueDate to a Date object if it's set
+    const dueDateObj = task.dueDate ? new Date(task.dueDate) : null;
+
     await addTask({
       ...task,
+      dueDate: dueDateObj,
       tags: task.tags.split(",").map((t) => t.trim()),
     });
 
@@ -34,77 +37,74 @@ export default function Home() {
 
   return (
     <>
-    <Navbar />
-    <div className="home-container">
+      <Navbar />
+      <div className="home-container">
         <div className="form-container">
-        <h2>Add New Task</h2>
-
-        <form onSubmit={handleSubmit}>
-            
+          <h2>Add New Task</h2>
+          <form onSubmit={handleSubmit}>
             {/* Title */}
             <label style={{ color: "black", fontWeight: "500", marginBottom: "5px" }}>
-            Title
+              Title
             </label>
             <input
-            type="text"
-            placeholder="Enter task title"
-            value={task.title}
-            onChange={(e) => setTask({ ...task, title: e.target.value })}
-            required
+              type="text"
+              placeholder="Enter task title"
+              value={task.title}
+              onChange={(e) => setTask({ ...task, title: e.target.value })}
+              required
             />
 
             {/* Description */}
             <label style={{ color: "black", fontWeight: "500", marginBottom: "5px" }}>
-            Description
+              Description
             </label>
             <textarea
-            placeholder="Enter task description"
-            value={task.description}
-            onChange={(e) => setTask({ ...task, description: e.target.value })}
-            ></textarea>
+              placeholder="Enter task description"
+              value={task.description}
+              onChange={(e) => setTask({ ...task, description: e.target.value })}
+            />
 
             {/* Priority */}
             <label style={{ color: "black", fontWeight: "500", marginBottom: "5px" }}>
-            Priority
+              Priority
             </label>
             <select
-            value={task.priority}
-            onChange={(e) => setTask({ ...task, priority: e.target.value })}
-            style={{ color: "black" }} // dropdown text in black
+              value={task.priority}
+              onChange={(e) => setTask({ ...task, priority: e.target.value })}
+              style={{ color: "black" }}
             >
-            <option style={{ color: "black" }}>Low</option>
-            <option style={{ color: "black" }}>Medium</option>
-            <option style={{ color: "black" }}>High</option>
+              <option style={{ color: "black" }}>Low</option>
+              <option style={{ color: "black" }}>Medium</option>
+              <option style={{ color: "black" }}>High</option>
             </select>
 
             {/* Due Date */}
             <label style={{ color: "black", fontWeight: "500", marginBottom: "5px" }}>
-                Due Date
+              Due Date
             </label>
             <input
-                type="datetime-local"
-                className="black-placeholder"
-                placeholder="Select due date & time"
-                value={task.dueDate}
-                onChange={(e) => setTask({ ...task, dueDate: e.target.value })}
+              type="datetime-local"
+              className="black-placeholder"
+              placeholder="Select due date & time"
+              value={task.dueDate}
+              onChange={(e) => setTask({ ...task, dueDate: e.target.value })}
             />
-
 
             {/* Tags */}
             <label style={{ color: "black", fontWeight: "500", marginBottom: "5px" }}>
-            Tags
+              Tags
             </label>
             <input
-            type="text"
-            placeholder="Tags (comma separated)"
-            value={task.tags}
-            onChange={(e) => setTask({ ...task, tags: e.target.value })}
+              type="text"
+              placeholder="Tags (comma separated)"
+              value={task.tags}
+              onChange={(e) => setTask({ ...task, tags: e.target.value })}
             />
 
             <button type="submit">Add Task</button>
-        </form>
+          </form>
         </div>
-    </div>
+      </div>
     </>
   );
 }

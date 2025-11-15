@@ -1,0 +1,104 @@
+/* Container to center the card */
+.login-register-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px 10px;
+  min-height: 100vh;
+  background: #f7f7f7;
+  width: 100vw;
+}
+
+/* Card / Form box */
+.form-container {
+  width: 100%;
+  max-width: 420px;
+  background: #ffffff;
+  padding: 32px;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+  border: 1px solid #e0e0e0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Form Title */
+.form-container h2 {
+  margin: 0 0 20px 0;
+  font-size: 22px;
+  font-weight: 600;
+  color: #222;
+  text-align: center;
+}
+
+/* Labels */
+.form-container label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #000;
+}
+
+/* Input */
+.form-container input,
+.form-container textarea,
+.form-container select {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 18px;
+  border: 1px solid #cccccc;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #000;
+  background: #ffffff;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Placeholder color */
+.form-container input::placeholder,
+.form-container textarea::placeholder {
+  color: #777 !important;
+}
+
+/* Focus */
+.form-container input:focus,
+.form-container textarea:focus,
+.form-container select:focus {
+  border-color: #1a73e8;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.2);
+}
+
+/* Submit button */
+.form-container button {
+  width: 100%;
+  padding: 12px;
+  background: #1a73e8;
+  border: none;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.form-container button:hover {
+  background: #155dbb;
+}
+
+/* Error message */
+.error {
+  color: #e74c3c;
+  margin-bottom: 12px;
+  font-weight: 500;
+  text-align: center;
+}
+
+/* Responsive for mobile */
+@media (max-width: 480px) {
+  .form-container {
+    padding: 24px;
+  }
+}
