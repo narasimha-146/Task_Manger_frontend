@@ -18,11 +18,18 @@ export default function App() {
       <div className="page-wrapper">
         <Routes>
           {/* Public Pages */}
-          <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
 
           {/* Protected Pages */}
+          <Route
+            path="/"
+            element={
+              <ProtectedRoute>
+                <Home/>
+              </ProtectedRoute>
+            }
+          />
           <Route
             path="/tasks"
             element={

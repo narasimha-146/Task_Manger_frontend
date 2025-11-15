@@ -20,7 +20,7 @@ export default function Login() {
       if (res.token) {
         localStorage.setItem("token", res.token);
         localStorage.setItem("user", JSON.stringify(res.user));
-        navigate("/tasks"); // redirect to tasks after login
+        navigate("/"); // redirect to tasks after login
       } else {
         setError(res.message || "Login failed");
       }
