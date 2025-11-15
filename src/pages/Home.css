@@ -1,0 +1,108 @@
+/* ===============================
+   HOME PAGE — Layout Centering
+   =============================== */
+
+.home-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px 10px;
+  min-height: calc(100vh - 80px); /* Adjust depending on navbar height */
+  background: #f7f7f7;
+  width: 100vw;
+  min-height: 100vh;
+}
+
+/* ===============================
+   FORM CONTAINER / CARD STYLE
+   =============================== */
+.form-container {
+  width: 100%;
+  max-width: 520px;
+  background: #ffffff;
+  padding: 32px;
+  border-radius: 12px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.08);
+  border: 1px solid #eaeaea;
+}
+
+.form-container h2 {
+  margin: 0 0 20px 0;
+  font-size: 22px;
+  font-weight: 600;
+  color: #222;
+  text-align: center;
+}
+
+/* ===============================
+   LABEL STYLES
+   =============================== */
+.form-container label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #000;
+}
+
+/* ===============================
+   INPUT + TEXTAREA + SELECT
+   =============================== */
+.form-container input,
+.form-container textarea,
+.form-container select {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 18px;
+  border: 1px solid #cccccc;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #000;
+  background: #ffffff;
+  transition: border-color 0.2s ease;
+}
+
+/* Ensure placeholder text is visible */
+.form-container input::placeholder,
+.form-container textarea::placeholder {
+  color: #444 !important;
+}
+
+/* textarea sizing */
+.form-container textarea {
+  resize: none;
+  min-height: 90px;
+}
+
+/* Focus Styles */
+.form-container input:focus,
+.form-container textarea:focus,
+.form-container select:focus {
+  border-color: #5a82f7;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(90, 130, 247, 0.2);
+}
+
+/* ===============================
+   SUBMIT BUTTON
+   =============================== */
+.form-container button {
+  width: 100%;
+  padding: 12px;
+  background: #5a82f7;
+  border: none;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.form-container button:hover {
+  background: #3c66e0;
+}
+
+.form-container button:active {
+  background: #2f52bc;
+}
