@@ -1,71 +1,90 @@
-// src/pages/Register.jsx
 import { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
-import { registerUser } from "../api"; // We'll create this in api.js
+import { Link, useNavigate } from "react-router-dom";
+import { registerUser } from "../api";
 import "./LoginRegister.css";
+
 
 export default function Register() {
   const navigate = useNavigate();
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = async (e) => {
+  const handleSignup = async (e) => {
     e.preventDefault();
     setError("");
+    setLoading(true);
 
     try {
-      const res = await registerUser({ name, email, password });
-
-      if (res.message === "User registered successfully") {
-        navigate("/login"); // redirect to login after registration
-      } else {
-        setError(res.message || "Registration failed");
-      }
+      await registerUser(form);
+      navigate("/login");
     } catch (err) {
-      setError(err.message || "Something went wrong");
+      setError(err.message || "Signup failed");
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <div className="login-register-container">
-      <div className="form-container">
-        <h2>Register</h2>
-        {error && <div className="error">{error}</div>}
-        <form onSubmit={handleSubmit}>
-          <label>Name</label>
-          <input
-            type="text"
-            placeholder="Enter name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
-          />
+    <div className="auth-wrapper">
+      <div className="auth-container">
+        {/* Left */}
+        <div className="auth-left">
+          <img src="/illustration.png" alt="Login Illustration" />
+        </div>
 
-          <label>Email</label>
-          <input
-            type="email"
-            placeholder="Enter email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
+        {/* Right */}
+        <div className="auth-right">
+          <h2 className="auth-title">Create Account</h2>
 
-          <label>Password</label>
-          <input
-            type="password"
-            placeholder="Enter password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
+          {error && <p className="auth-error">{error}</p>}
 
-          <button type="submit">Register</button>
-          <p style={{ marginTop: "10px", textAlign: "center" }}>
-            Already have an account? <Link to="/login">Login</Link>
-          </p>
-        </form>
+          <form onSubmit={handleSignup}>
+            <input
+              className="auth-input"
+              placeholder="Full Name"
+              value={form.name}
+              onChange={(e) =>
+                setForm({ ...form, name: e.target.value })
+              }
+              required
+            />
+
+            <input
+              className="auth-input"
+              type="email"
+              placeholder="Email"
+              value={form.email}
+              onChange={(e) =>
+                setForm({ ...form, email: e.target.value })
+              }
+              required
+            />
+
+            <input
+              className="auth-input"
+              type="password"
+              placeholder="Password"
+              value={form.password}
+              onChange={(e) =>
+                setForm({ ...form, password: e.target.value })
+              }
+              required
+            />
+
+            <button className="auth-btn" type="submit" disabled={loading}>
+              {loading ? "CREATING ACCOUNT..." : "SIGN UP"}
+            </button>
+          </form>
+
+          <div className="auth-link">
+            <Link to="/login">Already have an account? Login →</Link>
+          </div>
+        </div>
       </div>
     </div>
   );

@@ -7,38 +7,81 @@
   flex-direction: column;
   align-items: center;
   padding: 30px 10px;
-  min-height: calc(100vh - 80px); /* Adjust depending on navbar height */
   background: #f7f7f7;
   width: 100vw;
   min-height: 100vh;
 }
 
-/* Page Title */
-.page-container h2 {
+/* ===============================
+   HEADER
+   =============================== */
+
+.tasks-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 900px;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.tasks-header h2 {
   font-size: 24px;
   font-weight: 600;
   color: #222;
-  margin-bottom: 20px;
-  text-align: center;
+}
+
+/* Sorting dropdown */
+.sort-dropdown {
+  padding: 8px 12px;
+  font-size: 14px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background: #fff;
+  cursor: pointer;
+  color: #222;
+}
+
+.sort-dropdown:focus {
+  outline: none;
+  border-color: #5a82f7;
+  box-shadow: 0 0 0 3px rgba(90, 130, 247, 0.2);
 }
 
 /* ===============================
-   TABLE CONTAINER CARD
+   STATES
+   =============================== */
+
+.loading-text {
+  margin-top: 30px;
+  font-size: 15px;
+  color: #555;
+}
+
+.empty-state {
+  margin-top: 30px;
+  font-size: 16px;
+  color: #4caf50;
+  font-weight: 600;
+}
+
+/* ===============================
+   TABLE CONTAINER
    =============================== */
 
 .table-wrapper {
   width: 100%;
-  max-width: 900px; /* max width of table */
+  max-width: 900px;
   background: #fff;
   padding: 25px;
   border-radius: 12px;
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   border: 1px solid #eaeaea;
-  overflow-x: auto; /* responsive for mobile */
+  overflow-x: auto;
 }
 
 /* ===============================
-   TABLE STYLING
+   TABLE
    =============================== */
 
 .task-table {
@@ -55,7 +98,6 @@
 .task-table th {
   padding: 12px;
   font-weight: 600;
-  color: #333;
   border-bottom: 2px solid #e4e4e4;
   text-align: left;
 }
@@ -66,11 +108,12 @@
 }
 
 .task-table tr:hover {
-  background: #f9f9f9;
+  background: #f2f5ff;
+  transition: background 0.2s ease;
 }
 
 /* ===============================
-   BUTTONS IN TABLE
+   BUTTONS
    =============================== */
 
 .action-btn {
@@ -113,10 +156,15 @@
 }
 
 /* ===============================
-   RESPONSIVE (MOBILE)
+   RESPONSIVE
    =============================== */
 
 @media (max-width: 768px) {
+  .tasks-header {
+    flex-direction: column;
+    gap: 10px;
+  }
+
   .table-wrapper {
     padding: 15px;
   }
@@ -131,18 +179,4 @@
     padding: 5px 10px;
     font-size: 12px;
   }
-}
-
-.tasks-header {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 15px;
-}
-
-.sort-dropdown {
-  padding: 6px 10px;
-  font-size: 14px;
-  border-radius: 6px;
 }

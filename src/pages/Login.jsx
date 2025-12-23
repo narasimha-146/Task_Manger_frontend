@@ -1,7 +1,6 @@
-// src/pages/Login.jsx
 import { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
-import { loginUser } from "../api"; // We'll create this in api.js
+import { Link, useNavigate } from "react-router-dom";
+import { loginUser } from "../api";
 import "./LoginRegister.css";
 
 export default function Login() {
@@ -9,55 +8,69 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = async (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
     setError("");
+    setLoading(true);
 
     try {
       const res = await loginUser({ email, password });
 
-      if (res.token) {
-        localStorage.setItem("token", res.token);
-        localStorage.setItem("user", JSON.stringify(res.user));
-        navigate("/"); // redirect to tasks after login
-      } else {
-        setError(res.message || "Login failed");
-      }
+      localStorage.setItem("token", res.token);
+      localStorage.setItem("user", JSON.stringify(res.user));
+
+      navigate("/");
     } catch (err) {
-      setError(err.message || "Something went wrong");
+      setError(err.message || "Invalid credentials");
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <div className="login-register-container">
-      <div className="form-container">
-        <h2>Login</h2>
-        {error && <div className="error">{error}</div>}
-        <form onSubmit={handleSubmit}>
-          <label>Email</label>
-          <input
-            type="email"
-            placeholder="Enter email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
+    <div className="auth-wrapper">
+      <div className="auth-container">
+        {/* Left */}
+        <div className="auth-left">
+          <img src="/illustration.png" alt="Login Illustration" />
+        </div>
 
-          <label>Password</label>
-          <input
-            type="password"
-            placeholder="Enter password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
+        {/* Right */}
+        <div className="auth-right">
+          <h2 className="auth-title">Member Login</h2>
 
-          <button type="submit">Login</button>
-          <p style={{ marginTop: "10px", textAlign: "center" }}>
-            Don't have an account? <Link to="/register">Register</Link>
-          </p>
-        </form>
+          {error && <p className="auth-error">{error}</p>}
+
+          <form onSubmit={handleLogin}>
+            <input
+              className="auth-input"
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+
+            <input
+              className="auth-input"
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+
+            <button className="auth-btn" type="submit" disabled={loading}>
+              {loading ? "LOGGING IN..." : "LOGIN"}
+            </button>
+          </form>
+
+          <div className="auth-link">
+            <Link to="/register">Create your Account →</Link>
+          </div>
+        </div>
       </div>
     </div>
   );

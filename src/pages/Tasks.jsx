@@ -1,4 +1,3 @@
-// src/pages/Tasks.jsx
 import { useEffect, useState } from "react";
 import { fetchTasks } from "../api";
 import Navbar from "../components/Navbar";
@@ -6,16 +5,24 @@ import TaskTable from "../components/TaskTable";
 import "./Tasks.css";
 
 export default function Tasks() {
+  const [rawTasks, setRawTasks] = useState([]);
   const [tasks, setTasks] = useState([]);
-  const [sortBy, setSortBy] = useState("date-desc"); // default sorting
+  const [sortBy, setSortBy] = useState("date-desc");
+  const [loading, setLoading] = useState(true);
 
+  // Fetch tasks once
   const load = async () => {
-    const data = await fetchTasks("Pending");
-    const sorted = sortTasks(data);
-    setTasks(sorted);
+    try {
+      setLoading(true);
+      const data = await fetchTasks("Pending");
+      setRawTasks(data);
+      setTasks(sortTasks(data));
+    } finally {
+      setLoading(false);
+    }
   };
 
-  // Sort function
+  // Sorting logic
   const sortTasks = (list) => {
     const sorted = [...list];
 
@@ -28,15 +35,25 @@ export default function Tasks() {
         sorted.sort((a, b) => b.title.localeCompare(a.title));
         break;
 
-      case "priority":
+      case "priority": {
         const priorityOrder = { High: 1, Medium: 2, Low: 3 };
-        sorted.sort((a, b) => priorityOrder[a.priority] - priorityOrder[b.priority]);
+        sorted.sort(
+          (a, b) =>
+            (priorityOrder[a.priority] || 99) -
+            (priorityOrder[b.priority] || 99)
+        );
         break;
+      }
 
-      case "status":
+      case "status": {
         const statusOrder = { Pending: 1, Overdue: 2, Completed: 3 };
-        sorted.sort((a, b) => statusOrder[a.status] - statusOrder[b.status]);
+        sorted.sort(
+          (a, b) =>
+            (statusOrder[a.status] || 99) -
+            (statusOrder[b.status] || 99)
+        );
         break;
+      }
 
       case "date-asc":
         sorted.sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate));
@@ -53,7 +70,11 @@ export default function Tasks() {
 
   useEffect(() => {
     load();
-  }, [sortBy]); // reload + re-sort when sorting changes
+  }, []);
+
+  useEffect(() => {
+    setTasks(sortTasks(rawTasks));
+  }, [sortBy, rawTasks]);
 
   return (
     <>
@@ -63,7 +84,6 @@ export default function Tasks() {
         <div className="tasks-header">
           <h2>Pending Tasks</h2>
 
-          {/* Sorting Dropdown */}
           <select
             className="sort-dropdown"
             value={sortBy}
@@ -78,7 +98,15 @@ export default function Tasks() {
           </select>
         </div>
 
-        <TaskTable tasks={tasks} refresh={load} />
+        {loading && <p className="loading-text">Loading tasks...</p>}
+
+        {!loading && tasks.length === 0 && (
+          <p className="empty-state">🎉 No pending tasks</p>
+        )}
+
+        {!loading && tasks.length > 0 && (
+          <TaskTable tasks={tasks} refresh={load} />
+        )}
       </div>
     </>
   );
