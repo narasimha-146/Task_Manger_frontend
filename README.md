@@ -47,7 +47,10 @@ frontend/
 │   ├── pages/
 │   │   ├── Login.jsx
 │   │   ├── Register.jsx
-│   │   └── Tasks.jsx
+│   │   ├── Home.jsx
+│   │   ├── Tasks.jsx
+│   │   ├── Completed.jsx
+│   │   └── Notification.jsx
 │   │
 │   ├── App.jsx
 │   ├── main.jsx
